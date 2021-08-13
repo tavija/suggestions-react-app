@@ -1,0 +1,55 @@
+.form {
+    display:grid;
+    background-color: rgb(231, 247, 255);
+    border: 1px solid rgb(1, 101, 148);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(1, 141, 206);
+    width: 50%;
+}
+section {
+    margin: 5px;
+}
+.header {
+    background-color: rgb(1, 141, 206);
+    border: 1px solid rgb(1, 101, 148);
+    border-radius: 10px;
+    /* width: 200px; */
+    text-align: center;
+    color: rgb(231, 247, 255);
+    padding-top: 0.5px;
+    padding-bottom: 0.5px;
+    box-shadow: 0px 0px 10px rgb(1, 141, 206);
+}
+.button{
+    background-color: rgb(1, 141, 206);
+    border: 1px solid rgb(231, 247, 255);
+    padding: 5px;
+    width: 70px;
+    color: rgb(231, 247, 255);
+    font-size: 15px;
+    margin-top: 10px;
+}
+.content{
+    height: 150px;
+    width: 70%;
+    margin-left: 10px
+}
+.title{
+    height: 25px;
+    width: 70%;
+    margin-left: 10px
+}
+.form-label{
+    text-align: center;
+    display:inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+.paste-history{
+    border: 2px solid black;
+}
+.individual-paste{
+    border: 2px solid red;
+}
