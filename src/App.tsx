@@ -1,7 +1,17 @@
-import { greet } from "./utils/greet";
+import { CreateNewPaste } from "./components/createNewPaste";
+import { DisplayPasteHistory } from "./components/displayPasteHistory";
+import { Header } from "./components/header";
+import "./styles.css";
 
 function App(): JSX.Element {
-  return <h1>{greet("World")}</h1>;
+  
+  return (
+    <div>
+      <Header />
+      <CreateNewPaste />
+      <DisplayPasteHistory />
+    </div>
+  );
 }
 
 export default App;
