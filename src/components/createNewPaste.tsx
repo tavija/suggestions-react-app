@@ -7,8 +7,6 @@ import { useEffect, useState } from "react";
 //     .then((data) => console.log(data))
 // }
 
-// interface PasteProps {}
-
 export function CreateNewPaste(): JSX.Element {
     const [isFirstLoad, setIsFirstLoad] = useState(true)
     const [title, setTitle] = useState("")
@@ -63,6 +61,7 @@ export function CreateNewPaste(): JSX.Element {
     function resetPaste(){
         setContent("")
         setTitle("")
+        //setIsFirstLoad(true);
     }
 
     return (

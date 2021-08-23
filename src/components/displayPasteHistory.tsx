@@ -25,14 +25,16 @@ export function DisplayPasteHistory(): JSX.Element {
 
     return(
         <div className="paste-history">
-            <h1>Placeholder for History</h1>
-            <section>
-                {pastes.map((paste: any) => (
+            <h1>Previous Pastes</h1>
+            <div>
+                {/* slice creates shallow copy, reverse reverses it
+                Question: what type can I specify for paste in map? */}
+                {pastes.slice(0).reverse().map((paste:any) => (
                 <PasteEntry 
                     key={paste.paste_id}
                     {...paste}
                 />))}
-            </section>
+            </div>
         </div>
     );
 }

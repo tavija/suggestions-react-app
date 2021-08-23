@@ -4,22 +4,16 @@
     border: 1px solid rgb(1, 101, 148);
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgb(1, 141, 206);
-    width: 50%;
-}
-section {
-    margin: 5px;
+    box-shadow: 0px 0px 5px rgb(1, 141, 206);
+    width: 40%;
+    margin-block-end: 15px;
 }
 .header {
-    background-color: rgb(1, 141, 206);
-    border: 1px solid rgb(1, 101, 148);
-    border-radius: 10px;
-    /* width: 200px; */
     text-align: center;
-    color: rgb(231, 247, 255);
+    font-size: 25px;
+    color: rgb(1, 101, 148);
     padding-top: 0.5px;
     padding-bottom: 0.5px;
-    box-shadow: 0px 0px 10px rgb(1, 141, 206);
 }
 .button{
     background-color: rgb(1, 141, 206);
@@ -48,8 +42,24 @@ section {
     width: 60px;
 }
 .paste-history{
-    border: 2px solid black;
+    width: 40%;
+    padding: 10px;
+    background-color: rgb(231, 247, 255);
+    border: 1px solid rgb(1, 101, 148);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(1, 141, 206);
+
 }
 .individual-paste{
     border: 2px solid red;
+    word-break: break-all;
+    padding: 5px;
+    margin: 5px;
+
 }
+.read-more-link{
+    color: rgb(43, 76, 226);
+    text-decoration: underline;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
