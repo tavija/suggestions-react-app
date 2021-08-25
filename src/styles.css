@@ -5,7 +5,7 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0px 0px 5px rgb(1, 141, 206);
-    width: 40%;
+    /* width: 40%; */
     margin-block-end: 15px;
 }
 .header {
@@ -42,7 +42,7 @@
     width: 60px;
 }
 .paste-history{
-    width: 40%;
+    /* width: 40%; */
     padding: 10px;
     background-color: rgb(231, 247, 255);
     border: 1px solid rgb(1, 101, 148);
@@ -51,7 +51,7 @@
 
 }
 .individual-paste{
-    border: 2px solid red;
+    border-bottom: 2px solid rgb(1, 101, 148);
     word-break: break-all;
     padding: 5px;
     margin: 5px;
@@ -62,4 +62,7 @@
     text-decoration: underline;
     letter-spacing: 1px;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    background: none;
   }
