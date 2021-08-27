@@ -38,17 +38,17 @@ indigo-dye: rgb(40, 75, 99); */
     /* vertical-align: top; */
 }
 
-.title-box{
-    height: 25px;
+.title-box, .content-box{
     width: 80%;
     margin-left: 20px;
+}
 
+.title-box{
+    height: 25px;
 }
 
 .content-box{
     height: 150px;
-    width: 80%;
-    margin-left: 20px;
     vertical-align: top;
 }
 
