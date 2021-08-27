@@ -4,7 +4,7 @@ interface NewPasteProps {
     fetchPastesList: () => Promise<void> //could be just () => void
 }
 
-export function newPaste(props: NewPasteProps): JSX.Element {
+export function NewPaste(props: NewPasteProps): JSX.Element {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("");
 

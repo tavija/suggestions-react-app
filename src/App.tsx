@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { newPaste } from "./components/NewPaste";
-import { pasteHistory } from "./components/PasteHistory";
+
 import { Header } from "./components/header";
+import { NewPaste } from "./components/NewPaste";
+import { PasteHistory } from "./components/PasteHistory";
 import "./styles.css";
 
 export interface Paste {
@@ -35,10 +36,10 @@ function App(): JSX.Element {
     <div>
       <Header />
       <div className="flex-container">
-      <newPaste
+      <NewPaste
         fetchPastesList={getPastes}
       />
-      <pasteHistory
+      <PasteHistory
         pastesList={pastes}
       />
       </div>

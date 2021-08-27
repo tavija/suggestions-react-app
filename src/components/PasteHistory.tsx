@@ -5,7 +5,9 @@ interface PasteHistoryProps {
     pastesList: Paste[];
 }
 
-export function pasteHistory(props: PasteHistoryProps): JSX.Element {
+export function PasteHistory(props: PasteHistoryProps): JSX.Element {
+    
+    
     return (
         <div className="paste-history flex-right">
             <h2>Previous Pastes</h2>
