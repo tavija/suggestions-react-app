@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { CreateNewPaste } from "./components/createNewPaste";
-import { DisplayPasteHistory } from "./components/displayPasteHistory";
+import { newPaste } from "./components/NewPaste";
+import { pasteHistory } from "./components/PasteHistory";
 import { Header } from "./components/header";
 import "./styles.css";
 
@@ -34,12 +34,14 @@ function App(): JSX.Element {
   return (
     <div>
       <Header />
-      <CreateNewPaste
+      <div className="flex-container">
+      <newPaste
         fetchPastesList={getPastes}
       />
-      <DisplayPasteHistory
+      <pasteHistory
         pastesList={pastes}
       />
+      </div>
     </div>
   );
 }
