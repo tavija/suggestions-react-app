@@ -1,68 +1,113 @@
-.form {
-    display:grid;
-    background-color: rgb(231, 247, 255);
-    border: 1px solid rgb(1, 101, 148);
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px rgb(1, 141, 206);
-    /* width: 40%; */
-    margin-block-end: 15px;
-}
+/* SCSS RGB */
+/* jet: rgb(53, 53, 53);
+ming: rgb(60, 110, 113);
+white: rgb(255, 255, 255);
+gainsboro: rgb(217, 217, 217);
+indigo-dye: rgb(40, 75, 99); */
+
 .header {
-    text-align: center;
+    text-align: left;
     font-size: 25px;
-    color: rgb(1, 101, 148);
+    color: rgb(69, 123, 157);
     padding-top: 0.5px;
     padding-bottom: 0.5px;
 }
-.button{
-    background-color: rgb(1, 141, 206);
-    border: 1px solid rgb(231, 247, 255);
-    padding: 5px;
-    width: 70px;
-    color: rgb(231, 247, 255);
-    font-size: 15px;
-    margin-top: 10px;
+
+/* Paste Submit form */
+.form {
+    display:grid;
+    background-color: rgb(237, 246, 249);
+    border: 1px solid rgb(168, 218, 220);
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(168, 218, 220);
+    /* width: 40%; */
+    margin-block-end: 15px;
+    height: 500px;
+    color: rgb(29, 53, 87);
 }
-.content{
-    height: 150px;
-    width: 70%;
-    margin-left: 10px
-}
-.title{
-    height: 25px;
-    width: 70%;
-    margin-left: 10px
-}
+
 .form-label{
     text-align: center;
     display:inline-block;
     height: 34px;
     position: relative;
-    width: 60px;
+    width: 10%;
+    cursor: pointer;
+    padding: 3px 6px;
+    /* vertical-align: top; */
 }
+
+.title-box{
+    height: 25px;
+    width: 80%;
+    margin-left: 20px;
+
+}
+
+.content-box{
+    height: 150px;
+    width: 80%;
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.button{
+    background-color: rgb(69, 123, 157);
+    border: 1px solid rgb(168, 218, 220);
+    padding: 5px;
+    width: 70px;
+    color: rgb(241, 250, 238);
+    font-size: 15px;
+    margin: 10px;
+}
+
+/* Previous pastes history */
 .paste-history{
     /* width: 40%; */
     padding: 10px;
-    background-color: rgb(231, 247, 255);
-    border: 1px solid rgb(1, 101, 148);
+    background-color: rgb(237, 246, 249);
+    border: 1px solid rgb(168, 218, 220);
     border-radius: 10px;
-    box-shadow: 0px 0px 5px rgb(1, 141, 206);
+    box-shadow: 0px 0px 5px rgb(168, 218, 220);
+    height: 500px;
+    color: rgb(29, 53, 87);
 
 }
 .individual-paste{
-    border-bottom: 2px solid rgb(1, 101, 148);
+    border-bottom: 2px solid rgb(69, 123, 157);
     word-break: break-all;
-    padding: 5px;
-    margin: 5px;
-
 }
 .read-more-link{
-    color: rgb(43, 76, 226);
+    color: rgb(68, 128, 212);
     text-decoration: underline;
     letter-spacing: 1px;
     cursor: pointer;
     border: none;
     padding: 0;
     background: none;
-  }
+}
+.scroll-bar{
+    overflow: auto;
+    height: 80%;
+}
+
+/* Page layout */
+.flex-container {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.flex-left {
+    text-align: left;
+    grid-column: 1/2;
+    /* height: 500px; */
+    margin-right: 10px;
+}  
+
+.flex-right {
+    text-align: left;
+    grid-column: 2/2;
+    margin-left: 10px;
+} 
