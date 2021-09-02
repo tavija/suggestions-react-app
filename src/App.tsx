@@ -29,7 +29,7 @@ function App(): JSX.Element {
 
   return (
     <div>
-      <Header pageTitle="Suggestion Box"/>
+      <Header pageTitle="Suggestions Box" />
       <div className="flex-container">
         <NewSuggestion fetchSuggestionsList={getSuggestions} />
         <SuggestionsHistory suggestionsList={suggestionsList} />

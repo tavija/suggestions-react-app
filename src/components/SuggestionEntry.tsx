@@ -14,7 +14,15 @@ export default function SuggestionEntry({
     </div>
   );
   const linkName = readMore ? "Read Less << " : "Read Suggestion >> ";
-
+  
+  function giveName(){
+    if (name ===""){
+      return "anonymous"
+    } else {
+      return name
+    }
+  }
+  
   return (
     <div className="individual-suggestion">
       <h2>{title}</h2>
@@ -28,7 +36,7 @@ export default function SuggestionEntry({
       </button>
       {readMore && extraContent}
       <p>
-        Posted at: {time.slice(0, 10)} {time.slice(11, 16)} by {name}
+        Posted at: {time.slice(0, 10)} {time.slice(11, 16)} by {giveName()}
       </p>
     </div>
   );
