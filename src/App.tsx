@@ -17,8 +17,10 @@ function App(): JSX.Element {
 
   const getPastes = async () => {
     try {
-      const response = await fetch("https://pastebin-back-end-tavs.herokuapp.com/pastes");
-      //https://pastebin-back-end-tavs.herokuapp.com/ 
+      const response = await fetch(
+        "https://pastebin-back-end-tavs.herokuapp.com/pastes"
+      );
+      //https://pastebin-back-end-tavs.herokuapp.com/
       const jsonData = await response.json();
 
       setPastes(jsonData);
