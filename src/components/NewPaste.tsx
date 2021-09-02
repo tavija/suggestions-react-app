@@ -19,7 +19,7 @@ export function NewPaste(props: NewPasteProps): JSX.Element {
     resetPaste();
     try {
       const response = await fetch(
-        "http://localhost:4000/paste",
+        "https://pastebin-back-end-tavs.herokuapp.com/paste",
         requestOptions
       );
       console.log(await response.json());
