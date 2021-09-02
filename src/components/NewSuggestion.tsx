@@ -40,7 +40,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     <section className="form flex-left">
       <h2>Enter your suggestions</h2>
       <form id="submitSuggestion" onSubmit={submitSuggestion}>
-        <label className="form-label">Title (optional): </label>
+        <label className="form-label">Title: </label>
         <input
           type="text"
           id="title"
