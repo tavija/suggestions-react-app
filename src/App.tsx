@@ -13,21 +13,19 @@ export interface Paste {
 }
 
 function App(): JSX.Element {
-
-  const [pastes, setPastes] = useState<Paste[]>([])
+  const [pastes, setPastes] = useState<Paste[]>([]);
 
   const getPastes = async () => {
     try {
-      const response = await fetch("http://localhost:4000/paste")
-      const jsonData = await response.json()
+      const response = await fetch("http://localhost:4000/paste");
+      const jsonData = await response.json();
 
-      setPastes(jsonData)
-
+      setPastes(jsonData);
     } catch (err) {
       //might want to display something to the user
-      console.error(err.message)
+      console.error(err.message);
     }
-  }
+  };
   useEffect(() => {
     getPastes();
   }, []);
@@ -36,12 +34,8 @@ function App(): JSX.Element {
     <div>
       <Header />
       <div className="flex-container">
-      <NewPaste
-        fetchPastesList={getPastes}
-      />
-      <PasteHistory
-        pastesList={pastes}
-      />
+        <NewPaste fetchPastesList={getPastes} />
+        <PasteHistory pastesList={pastes} />
       </div>
     </div>
   );
