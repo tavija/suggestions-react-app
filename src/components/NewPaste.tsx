@@ -19,7 +19,7 @@ export function NewPaste(props: NewPasteProps): JSX.Element {
     resetPaste();
     try {
       const apiBaseURL = process.env.REACT_APP_API_BASE;
-      const response = await fetch(apiBaseURL + "/pastes", requestOptions)
+      const response = await fetch(apiBaseURL + "/paste", requestOptions)
       // const response = await fetch(
       //   "https://pastebin-back-end-tavs.herokuapp.com/paste",
       //   requestOptions
