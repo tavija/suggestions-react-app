@@ -18,10 +18,12 @@ export function NewPaste(props: NewPasteProps): JSX.Element {
     };
     resetPaste();
     try {
-      const response = await fetch(
-        "https://pastebin-back-end-tavs.herokuapp.com/paste",
-        requestOptions
-      );
+      const apiBaseURL = process.env.REACT_APP_API_BASE;
+      const response = await fetch(apiBaseURL + "/pastes", requestOptions)
+      // const response = await fetch(
+      //   "https://pastebin-back-end-tavs.herokuapp.com/paste",
+      //   requestOptions
+      // );
       console.log(await response.json());
 
       //tells the parent to call the function to getPastes again to display new info
