@@ -1,28 +1,22 @@
 import { useState } from "react";
+import { SuggestionProps } from "../Types";
 
-interface PasteEntryProps {
-  paste_id: number;
-  title: string;
-  content: string;
-  time: string;
-}
-
-export function PasteEntry({
-  paste_id,
+export default function SuggestionEntry({
   title,
   content,
+  name,
   time,
-}: PasteEntryProps): JSX.Element {
+}: SuggestionProps): JSX.Element {
   const [readMore, setReadMore] = useState(false);
   const extraContent = (
     <div>
       <p>{content}</p>
     </div>
   );
-  const linkName = readMore ? "Read Less << " : "Read Content >> ";
+  const linkName = readMore ? "Read Less << " : "Read Suggestion >> ";
 
   return (
-    <div className="individual-paste">
+    <div className="individual-suggestion">
       <h2>{title}</h2>
       <button
         className="read-more-link"
@@ -34,7 +28,7 @@ export function PasteEntry({
       </button>
       {readMore && extraContent}
       <p>
-        Posted at: {time.slice(0, 10)} {time.slice(11, 16)}
+        Posted at: {time.slice(0, 10)} {time.slice(11, 16)} by {name}
       </p>
     </div>
   );

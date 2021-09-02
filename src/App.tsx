@@ -1,45 +1,38 @@
 import { useEffect, useState } from "react";
 
 import { Header } from "./components/header";
-import { NewPaste } from "./components/NewPaste";
-import { PasteHistory } from "./components/PasteHistory";
+import { NewSuggestion } from "./components/NewSuggestion";
+import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
+import { SuggestionProps } from "./Types";
 
-export interface Paste {
-  paste_id: number;
-  title: string;
-  content: string;
-  time: string;
-}
 
 function App(): JSX.Element {
-  const [pastes, setPastes] = useState<Paste[]>([]);
+  const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
 
-  const getPastes = async () => {
+  const getSuggestions = async () => {
     try {
       const apiBaseURL = process.env.REACT_APP_API_BASE;
-      const response = await fetch(apiBaseURL + "/pastes")
-      // const response = await fetch(
-      //   "https://pastebin-back-end-tavs.herokuapp.com/pastes"
-      // );
+      const response = await fetch(apiBaseURL + "/suggestions")
+
       const jsonData = await response.json();
 
-      setPastes(jsonData);
+      setSuggestionsList(jsonData);
     } catch (err) {
       //might want to display something to the user
       console.error(err.message);
     }
   };
   useEffect(() => {
-    getPastes();
+    getSuggestions();
   }, []);
 
   return (
     <div>
-      <Header />
+      <Header pageTitle="Suggestion Box"/>
       <div className="flex-container">
-        <NewPaste fetchPastesList={getPastes} />
-        <PasteHistory pastesList={pastes} />
+        <NewSuggestion fetchSuggestionsList={getSuggestions} />
+        <SuggestionsHistory suggestionsList={suggestionsList} />
       </div>
     </div>
   );

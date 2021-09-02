@@ -1,47 +1,45 @@
 import { useState } from "react";
 
-interface NewPasteProps {
-  fetchPastesList: () => Promise<void>; //could be just () => void
+interface NewSuggestionProps {
+  fetchSuggestionsList: () => Promise<void>; //could be just () => void
 }
 
-export function NewPaste(props: NewPasteProps): JSX.Element {
+export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [name, setName] = useState("")
 
-  async function submitPaste(event: React.FormEvent<HTMLFormElement>) {
+  async function submitSuggestion(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const body = { title, content };
+    const body = { title, content, name};
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
-    resetPaste();
+    resetSuggestion();
     try {
       const apiBaseURL = process.env.REACT_APP_API_BASE;
-      const response = await fetch(apiBaseURL + "/paste", requestOptions)
-      // const response = await fetch(
-      //   "https://pastebin-back-end-tavs.herokuapp.com/paste",
-      //   requestOptions
-      // );
+      const response = await fetch(apiBaseURL + "/suggestion", requestOptions)
+ 
       console.log(await response.json());
 
-      //tells the parent to call the function to getPastes again to display new info
-      props.fetchPastesList(); //if there was follow up action, then use await
+      //tells the parent to call the function to getSuggestions again to display new info
+      props.fetchSuggestionsList(); //if there was follow up action, then use await
     } catch (err) {
       console.error(err.message);
     }
   }
 
-  function resetPaste() {
+  function resetSuggestion() {
     setContent("");
     setTitle("");
   }
 
   return (
     <section className="form flex-left">
-      <h2>Please type in the title and content</h2>
-      <form id="submitPaste" onSubmit={submitPaste}>
+      <h2>Enter your suggestions</h2>
+      <form id="submitSuggestion" onSubmit={submitSuggestion}>
         <label className="form-label">Title (optional): </label>
         <input
           type="text"
@@ -52,7 +50,6 @@ export function NewPaste(props: NewPasteProps): JSX.Element {
           }}
           className="title-box"
         />
-        <br />
         <label className="form-label">Content: </label>
         <input
           type="text"
@@ -63,9 +60,19 @@ export function NewPaste(props: NewPasteProps): JSX.Element {
           }}
           className="content-box"
         />
+        <label className="form-label">Name: </label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+          className="title-box"
+        />
         <br />
         <input type="submit" value="Submit" className="button" />
-        <button type="reset" onClick={resetPaste} className="button">
+        <button type="reset" onClick={resetSuggestion} className="button">
           Reset
         </button>
       </form>

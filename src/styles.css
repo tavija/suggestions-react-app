@@ -13,7 +13,7 @@ indigo-dye: rgb(40, 75, 99); */
   padding-bottom: 0.5px;
 }
 
-/* Paste Submit form */
+/* Suggestion Submit form */
 .form {
   display: grid;
   background-color: rgb(237, 246, 249);
@@ -64,7 +64,7 @@ indigo-dye: rgb(40, 75, 99); */
 }
 
 /* Previous pastes history */
-.paste-history {
+.suggestion-history {
   /* width: 40%; */
   padding: 10px;
   background-color: rgb(237, 246, 249);
@@ -74,7 +74,7 @@ indigo-dye: rgb(40, 75, 99); */
   height: 500px;
   color: rgb(29, 53, 87);
 }
-.individual-paste {
+.individual-suggestion {
   border-bottom: 2px solid rgb(69, 123, 157);
   word-break: break-all;
 }
