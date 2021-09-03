@@ -5,20 +5,19 @@ import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
 import { SuggestionProps } from "./Types";
 
-
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
-  const [username, setUsername] = useState("admin")
+  const [username, setUsername] = useState("admin");
   //TODO delete votes useState when POST request for vote has been coded in handleVote()
-  const [pageView, setPageView] = useState("allSugestions")
+  const [pageView, setPageView] = useState("allSugestions");
 
   const getSuggestions = async () => {
     try {
       const apiBaseURL = process.env.REACT_APP_API_BASE;
-      const response = await fetch(apiBaseURL + "/suggestions")
+      const response = await fetch(apiBaseURL + "/suggestions");
       const jsonData = await response.json();
-      
-      setSuggestionsList(jsonData)
+
+      setSuggestionsList(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -39,7 +38,7 @@ function App(): JSX.Element {
     if (typeof suggestion_id === "number") {
       try {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
-        const response = await fetch(apiBaseURL + "/vote", requestOptions)
+        const response = await fetch(apiBaseURL + "/vote", requestOptions);
         console.log(await response.json());
         getSuggestions();
       } catch (err) {
@@ -48,24 +47,29 @@ function App(): JSX.Element {
     }
   }
 
-
   function handleDelete() {
-    console.log("would delete")
+    console.log("would delete");
   }
 
   return (
     <div>
-      <Header pageTitle="Suggestions Box" setUsername={setUsername} setPageView={setPageView} />
+      <Header
+        pageTitle="Suggestions Box"
+        setUsername={setUsername}
+        setPageView={setPageView}
+      />
       <div className="flex-container">
-        {pageView === "enterNewSuggestion" &&
-          <NewSuggestion fetchSuggestionsList={getSuggestions} />}
-        {pageView === "allSugestions" &&
+        {pageView === "enterNewSuggestion" && (
+          <NewSuggestion fetchSuggestionsList={getSuggestions} />
+        )}
+        {pageView === "allSugestions" && (
           <SuggestionsHistory
             suggestionsList={suggestionsList}
             username={username}
             handleVote={handleVote}
             handleDelete={handleDelete}
-          />}
+          />
+        )}
       </div>
     </div>
   );

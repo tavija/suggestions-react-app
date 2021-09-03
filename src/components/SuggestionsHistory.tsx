@@ -9,20 +9,20 @@ interface ISuggestionsHistory {
 }
 
 export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
-
-    return (
-      <div className="suggestion-history flex-right">
-        <h2>All Suggestions</h2>
-        {[...props.suggestionsList].reverse().map((suggestion: SuggestionProps) =>
-          <SuggestionEntry 
-            key={suggestion.suggestion_id} 
-            suggestion={suggestion} 
+  return (
+    <div className="suggestion-history flex-right">
+      <h2>All Suggestions</h2>
+      {[...props.suggestionsList]
+        .reverse()
+        .map((suggestion: SuggestionProps) => (
+          <SuggestionEntry
+            key={suggestion.suggestion_id}
+            suggestion={suggestion}
             handleVote={props.handleVote}
-            handleDelete={props.handleDelete} 
+            handleDelete={props.handleDelete}
             username={props.username}
           />
-        )}
-      </div>
-    )
+        ))}
+    </div>
+  );
 }
-

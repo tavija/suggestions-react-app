@@ -7,7 +7,7 @@ interface NewSuggestionProps {
 export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [name, setName] = useState("")
+  const [name, setName] = useState("");
 
   async function submitSuggestion(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -18,11 +18,14 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       body: JSON.stringify(body),
     };
     if (title !== "") {
-      console.log({ title })
+      console.log({ title });
 
       try {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
-        const response = await fetch(apiBaseURL + "/suggestion", requestOptions)
+        const response = await fetch(
+          apiBaseURL + "/suggestion",
+          requestOptions
+        );
 
         console.log(await response.json());
 
@@ -33,14 +36,14 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       }
       resetSuggestion();
     } else {
-      console.log("empty title")
+      console.log("empty title");
     }
   }
 
   function resetSuggestion() {
     setContent("");
     setTitle("");
-    setName("")
+    setName("");
   }
 
   return (
