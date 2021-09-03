@@ -4,7 +4,6 @@ import SuggestionEntry from "./SuggestionEntry";
 interface ISuggestionsHistory {
   suggestionsList: SuggestionProps[];
   username: string;
-  setVotes: React.Dispatch<React.SetStateAction<number>>;
   handleDelete: () => void;
   handleVote: (suggestion_id: number) => void;
 }
