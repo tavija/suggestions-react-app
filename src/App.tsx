@@ -9,6 +9,9 @@ import { SuggestionProps } from "./Types";
 
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
+  const [user, setUser] = useState("admin")
+  const [votes, setVotes] = useState(0)
+  const [pageView, setPageView] = useState("allSugestions")
 
   const getSuggestions = async () => {
     try {
@@ -27,12 +30,13 @@ function App(): JSX.Element {
     getSuggestions();
   }, []);
 
+
   return (
     <div>
-      <Header pageTitle="Suggestions Box" />
+      <Header pageTitle="Suggestions Box" setUser={setUser} setPageView={setPageView}/>
       <div className="flex-container">
-        <NewSuggestion fetchSuggestionsList={getSuggestions} />
-        <SuggestionsHistory suggestionsList={suggestionsList} />
+        {pageView === "enterNewSuggestion" && <NewSuggestion fetchSuggestionsList={getSuggestions} />}
+        {pageView === "allSugestions" && <SuggestionsHistory suggestionsList={suggestionsList} user={user} setVotes={setVotes }votes={votes}/>}
       </div>
     </div>
   );
