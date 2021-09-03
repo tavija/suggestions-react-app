@@ -1,14 +1,14 @@
 
 interface IHeader{
   pageTitle: string;
-  setUser: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPageView: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function Header(props: IHeader): JSX.Element {
 
   function handleUserClick(event: React.ChangeEvent<HTMLSelectElement>){
-    props.setUser(event.target.value)
+    props.setUsername(event.target.value)
   }
 
   function handlePageClick(page:string){
