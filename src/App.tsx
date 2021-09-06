@@ -1,45 +1,75 @@
 import { useEffect, useState } from "react";
-
 import { Header } from "./components/header";
-import { NewPaste } from "./components/NewPaste";
-import { PasteHistory } from "./components/PasteHistory";
+import { NewSuggestion } from "./components/NewSuggestion";
+import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
-
-export interface Paste {
-  paste_id: number;
-  title: string;
-  content: string;
-  time: string;
-}
+import { SuggestionProps } from "./Types";
 
 function App(): JSX.Element {
-  const [pastes, setPastes] = useState<Paste[]>([]);
+  const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
+  const [username, setUsername] = useState("admin");
+  //TODO delete votes useState when POST request for vote has been coded in handleVote()
+  const [pageView, setPageView] = useState("allSugestions");
 
-  const getPastes = async () => {
+  const getSuggestions = async () => {
     try {
       const apiBaseURL = process.env.REACT_APP_API_BASE;
-      const response = await fetch(apiBaseURL + "/pastes")
-      // const response = await fetch(
-      //   "https://pastebin-back-end-tavs.herokuapp.com/pastes"
-      // );
+      const response = await fetch(apiBaseURL + "/suggestions");
       const jsonData = await response.json();
 
-      setPastes(jsonData);
+      setSuggestionsList(jsonData);
     } catch (err) {
-      //might want to display something to the user
       console.error(err.message);
     }
   };
+
   useEffect(() => {
-    getPastes();
+    getSuggestions();
   }, []);
+
+  //POST request to send vote to DB when 'Upvote' button is clicked
+  async function handleVote(suggestion_id: number) {
+    const body = { suggestion_id, username };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+    if (typeof suggestion_id === "number") {
+      try {
+        const apiBaseURL = process.env.REACT_APP_API_BASE;
+        const response = await fetch(apiBaseURL + "/vote", requestOptions);
+        console.log(await response.json());
+        getSuggestions();
+      } catch (err) {
+        console.error(err.message);
+      }
+    }
+  }
+
+  function handleDelete() {
+    console.log("would delete");
+  }
 
   return (
     <div>
-      <Header />
+      <Header
+        pageTitle="Suggestions Box"
+        setUsername={setUsername}
+        setPageView={setPageView}
+      />
       <div className="flex-container">
-        <NewPaste fetchPastesList={getPastes} />
-        <PasteHistory pastesList={pastes} />
+        {pageView === "enterNewSuggestion" && (
+          <NewSuggestion fetchSuggestionsList={getSuggestions} />
+        )}
+        {pageView === "allSugestions" && (
+          <SuggestionsHistory
+            suggestionsList={suggestionsList}
+            username={username}
+            handleVote={handleVote}
+            handleDelete={handleDelete}
+          />
+        )}
       </div>
     </div>
   );

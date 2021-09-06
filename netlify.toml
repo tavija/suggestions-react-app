@@ -3,4 +3,4 @@
   publish = "build"
 
 [context.production.environment]
-  REACT_APP_API_BASE = "https://pastebin-back-end-tavs.herokuapp.com"
+  REACT_APP_API_BASE = "https://suggestions-app-tavs.herokuapp.com"
