@@ -68,7 +68,8 @@ function App(): JSX.Element {
             fetchSuggestionsList={getSuggestions}
             setUsername={setUsername}
             setPageView={setPageView}
-            pageView={pageView} />
+            pageView={pageView}
+            username={username} />
         )}
         {pageView === "allSugestions" && (
           <SuggestionsHistory

@@ -5,13 +5,14 @@ interface NewSuggestionProps {
   fetchSuggestionsList: () => Promise<void>; //could be just () => void
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPageView: React.Dispatch<React.SetStateAction<string>>;
-  pageView: string
+  pageView: string;
+  username: string;
 }
 
 export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = useState("anonymous");
   const [firstSubmit, setFirstSubmit] = useState(false)
 
   async function submitSuggestion(event: React.FormEvent<HTMLFormElement>) {
@@ -23,8 +24,6 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       body: JSON.stringify(body),
     };
     if (title !== "") {
-      console.log({ title });
-
       try {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
         const response = await fetch(
@@ -43,14 +42,20 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       setFirstSubmit(true)
     } else {
       console.log("empty title");
+      return(
+        <div>Hello</div>
+      )
     }
   }
 
   function resetSuggestion() {
     setContent("");
     setTitle("");
-    setName("");
     setFirstSubmit(false)
+  }
+
+  function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setName(event.target.value)
   }
 
   return (
@@ -82,17 +87,24 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
           }}
           className="content-box"
         />
-        <label className="form-label">Name: </label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-          className="name-box"
-        />
-        <br />
+        <fieldset>
+          <legend>Submit as:</legend>
+            <label><input
+              type="radio"
+              name="anonymous"
+              value="anonymous"
+              onChange={handleNameChange}
+              checked={"anonymous" === name}
+            />Anonymous</label>
+            <label>
+              <input
+                type="radio"
+                name={props.username}
+                value={props.username}
+                onChange={(event) => handleNameChange(event)}
+                checked={props.username === name}
+              />{props.username.charAt(0).toUpperCase() + props.username.slice(1)}</label>
+        </fieldset>
         <div className="center">
           <input type="submit" value="Submit" className="button" />
           <button type="reset" onClick={resetSuggestion} className="button">
