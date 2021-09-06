@@ -96,7 +96,6 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             className="content-box new-suggestion-right-column"
             rows={5}
             cols={5}
-            wrap="off"
             required
           />
         </div>
