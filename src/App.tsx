@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Header } from "./components/header";
 import { NewSuggestion } from "./components/NewSuggestion";
 import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
@@ -22,9 +21,11 @@ function App(): JSX.Element {
     }
   };
 
+
+  //was asked to remove dependancies all together. why?
   useEffect(() => {
     getSuggestions();
-  }, []);
+  });
 
   //POST request to send vote to DB when 'Upvote' button is clicked
   async function handleVote(suggestion_id: number) {
@@ -38,6 +39,7 @@ function App(): JSX.Element {
       try {
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
         console.log(await response.json());
+
         getSuggestions();
       } catch (err) {
         console.error(err.message);
@@ -59,28 +61,28 @@ function App(): JSX.Element {
   }
 
 
-return (
-  <div>
-    <Header
-      pageTitle="Suggestions Box"
-      setUsername={setUsername}
-      setPageView={setPageView}
-    />
-    <div className="flex-container">
-      {pageView === "enterNewSuggestion" && (
-        <NewSuggestion fetchSuggestionsList={getSuggestions} />
-      )}
-      {pageView === "allSugestions" && (
-        <SuggestionsHistory
-          suggestionsList={suggestionsList}
-          username={username}
-          handleVote={handleVote}
-          handleDelete={handleDelete}
-        />
-      )}
+  return (
+      <div className="app">
+        {pageView === "enterNewSuggestion" && (
+          <NewSuggestion
+            fetchSuggestionsList={getSuggestions}
+            setUsername={setUsername}
+            setPageView={setPageView}
+            pageView={pageView} />
+        )}
+        {pageView === "allSugestions" && (
+          <SuggestionsHistory
+            suggestionsList={suggestionsList}
+            username={username}
+            handleVote={handleVote}
+            handleDelete={handleDelete}
+            setUsername={setUsername}
+            setPageView={setPageView}
+            pageView={pageView}
+          />
+        )}
     </div>
-  </div>
-);
+  );
 }
 
 export default App;

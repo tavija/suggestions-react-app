@@ -11,14 +11,7 @@ interface ISuggestionsHistory {
 export default function SuggestionEntry(
   props: ISuggestionsHistory
 ): JSX.Element {
-  const [readMore, setReadMore] = useState(false);
   const [votesCount, setVotesCount] = useState(0);
-  const extraContent = (
-    <div>
-      <p>{props.suggestion.content}</p>
-    </div>
-  );
-  const linkName = readMore ? "Read Less << " : "Read Suggestion >> ";
 
   function handleClick(user: string) {
     if (user === "admin") {
@@ -67,27 +60,21 @@ export default function SuggestionEntry(
   return (
     <div className="individual-suggestion">
       <h2>{props.suggestion.title}</h2>
-      <button
-        className="read-more-link"
-        onClick={() => {
-          setReadMore(!readMore);
-        }}
-      >
-        {linkName}
-      </button>
-      {readMore && extraContent}
-      <p>
-        {votesCount} votes. Posted at: {props.suggestion.time.slice(0, 10)}{" "}
+      <p>{props.suggestion.content}</p>
+      <p className="suggestion-info">
+        <b>{votesCount} votes.</b> Posted at: {props.suggestion.time.slice(0, 10)}{" "}
         {props.suggestion.time.slice(11, 16)} by {giveName()}
       </p>
+      <div className="center">
       {props.username === "admin" && (
-        <button onClick={() => handleClick("user")}>
+        <button className="button" onClick={() => handleClick("user")}>
           {buttonName("user")}
         </button>
       )}
-      <button onClick={() => handleClick(props.username)}>
+      <button className="button" onClick={() => handleClick(props.username)}>
         {buttonName(props.username)}
       </button>
+      </div>
     </div>
   );
 }

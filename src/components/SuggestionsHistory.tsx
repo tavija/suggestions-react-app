@@ -1,4 +1,5 @@
 import { SuggestionProps } from "../Types";
+import { Header } from "./header";
 import SuggestionEntry from "./SuggestionEntry";
 
 interface ISuggestionsHistory {
@@ -6,12 +7,21 @@ interface ISuggestionsHistory {
   username: string;
   handleDelete: (suggestion_id: number) => Promise<void>;
   handleVote: (suggestion_id: number) => void;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setPageView: React.Dispatch<React.SetStateAction<string>>;
+  pageView: string;
 }
 
 export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
   return (
-    <div className="suggestion-history flex-right">
-      <h2>All Suggestions</h2>
+    <div>
+      <Header
+      pageTitle="Suggestions Box"
+      setUsername={props.setUsername}
+      setPageView={props.setPageView}
+      pageView={props.pageView}
+    />
+    <div className="suggestion-history">
       {[...props.suggestionsList]
         .reverse()
         .map((suggestion: SuggestionProps) => (
@@ -23,6 +33,7 @@ export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
             username={props.username}
           />
         ))}
+        </div>
     </div>
   );
 }

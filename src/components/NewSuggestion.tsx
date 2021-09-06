@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { Header } from "./header";
 
 interface NewSuggestionProps {
   fetchSuggestionsList: () => Promise<void>; //could be just () => void
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  setPageView: React.Dispatch<React.SetStateAction<string>>;
+  pageView: string
 }
 
 export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [name, setName] = useState("");
+  const [firstSubmit, setFirstSubmit] = useState(false)
 
   async function submitSuggestion(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,6 +40,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
         console.error(err.message);
       }
       resetSuggestion();
+      setFirstSubmit(true)
     } else {
       console.log("empty title");
     }
@@ -44,15 +50,20 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     setContent("");
     setTitle("");
     setName("");
+    setFirstSubmit(false)
   }
 
   return (
-    <section className="form flex-left">
-      <h2>Enter your suggestions</h2>
-      <form id="submitSuggestion" onSubmit={submitSuggestion}>
+    <div>
+      <Header
+        pageTitle="Make a suggestion"
+        setUsername={props.setUsername}
+        setPageView={props.setPageView}
+        pageView={props.pageView}
+      />
+      <form id="newSuggestion" onSubmit={submitSuggestion} className="new-suggestion">
         <label className="form-label">Title: </label>
         <input
-          placeholder="title"
           type="text"
           id="title"
           value={title}
@@ -79,14 +90,19 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
           onChange={(event) => {
             setName(event.target.value);
           }}
-          className="title-box"
+          className="name-box"
         />
         <br />
-        <input type="submit" value="Submit" className="button" />
-        <button type="reset" onClick={resetSuggestion} className="button">
-          Reset
-        </button>
+        <div className="center">
+          <input type="submit" value="Submit" className="button" />
+          <button type="reset" onClick={resetSuggestion} className="button">
+            Reset
+          </button>
+        </div>
+        {firstSubmit === true &&
+          <p className="center">Thank you for submitting your suggestion! You can submit another one or return to view all suggestions.</p>
+        }
       </form>
-    </section>
+    </div>
   );
 }

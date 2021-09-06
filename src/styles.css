@@ -1,49 +1,78 @@
-/* SCSS RGB */
-/* jet: rgb(53, 53, 53);
-ming: rgb(60, 110, 113);
-white: rgb(255, 255, 255);
-gainsboro: rgb(217, 217, 217);
-indigo-dye: rgb(40, 75, 99); */
+/* dark blue: rgb(74, 124, 148) 
+light blue background: rgb(238, 245, 250)
+grey: rgb(229, 229, 229)
+lighter font: rgb(142, 164, 173)
+darker font: rgb(57, 86, 101)*/
 
-.header {
-  text-align: left;
-  font-size: 25px;
-  color: rgb(69, 123, 157);
-  padding-top: 0.5px;
-  padding-bottom: 0.5px;
-  margin: 15px;
+html, body {
+  margin: 0;
+  font-family: Georgia, serif ;
+  background-color: rgb(229, 229, 229);
+  margin-bottom: 0px;
+  min-height: 100vh
+}
+
+.app{
+  width: 700px;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  min-height: 100vh;
+}
+
+.page-title{
+  color: rgb(74, 124, 148);
+  text-align: center;
+  font-size: 35px;
+}
+
+.header{
+  padding: 30px 100px 10px 100px ;
+  /* border: solid black; */
+}
+
+.header-menu{
+  padding: 10px 25px;
+}
+
+.suggestion-history, .suggestion-history-header, .new-suggestion-user-list{
+  background-color: rgb(238, 245, 250);
+  color: rgb(57, 86, 101);
 }
 
 /* Suggestion Submit form */
-.form {
-  background-color: rgb(237, 246, 249);
-  border: 1px solid rgb(168, 218, 220);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgb(168, 218, 220);
-  /* width: 40%; */
-  margin: 15px;
-  color: rgb(29, 53, 87);
+
+.new-suggestion, .new-suggestion-header, .suggestion-history-user-list{
+  background-color: white;
+  color: rgb(57, 86, 101)
+}
+
+.new-suggestion{
+  padding: 20px 100px 70px;
+  min-height: 45vh;
 }
 
 .form-label {
   text-align: center;
   display: inline-block;
-  height: 34px;
   position: relative;
   width: 10%;
-  cursor: pointer;
-  padding: 3px 6px;
-  /* vertical-align: top; */
+  padding: 10px 6px;
+}
+
+.title-box,.content-box,.name-box {
+  width: 80%;
+  margin-left: 20px;
+  background-color: rgb(238, 245, 250);
+  border: none;
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .title-box,
-.content-box {
-  width: 80%;
-  margin-left: 20px;
-}
-
-.title-box {
+.name-box {
   height: 25px;
 }
 
@@ -52,50 +81,59 @@ indigo-dye: rgb(40, 75, 99); */
   vertical-align: top;
 }
 
-.button {
-  background-color: rgb(69, 123, 157);
-  border: 1px solid rgb(168, 218, 220);
+.button, .cancel-button {
+  background-color: rgb(74, 124, 148);
   padding: 5px;
-  width: 70px;
-  color: rgb(241, 250, 238);
+  color: white;
   font-size: 15px;
   margin: 10px;
+  font-weight: bold;
+  border: none;
+  width: 85px;
+  text-align: center;
+  cursor: pointer;
+}
+.button {
+  border-radius: 5px;
 }
 
-/* Previous pastes history */
+
+/* Previous suggestion history */
 .suggestion-history {
-  padding: 10px;
-  background-color: rgb(237, 246, 249);
-  border: 1px solid rgb(168, 218, 220);
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgb(168, 218, 220);
-  color: rgb(29, 53, 87);
-  margin: 15px;
+  padding: 10px 100px 100px;
 }
+
 .individual-suggestion {
-  border-bottom: 2px solid rgb(69, 123, 157);
+  border-bottom: 2px solid rgb(74, 124, 148);
   word-break: break-all;
 }
-.read-more-link {
-  color: rgb(68, 128, 212);
-  text-decoration: underline;
-  letter-spacing: 1px;
-  cursor: pointer;
+
+.suggestion-info{
+  color: rgb(28, 127, 177);
+}
+
+/* Additional elements */
+.center {
+  text-align: center
+}
+.user-list{
   border: none;
-  padding: 0;
-  background: none;
+  padding: 5px;
+  font-size: 15px;
+  margin: 10px;
+  width: 85px;
 }
-.scroll-bar {
-  overflow: auto;
-  height: 80%;
+.flex-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 440px;
+  margin: auto;
 }
-
-/* Page layout */
-.flex-container {
+.right-column {
+  display: inline-block;
+  text-align: right;
 }
-
-.flex-left {
-}
-
-.flex-right {
+.left-column {
+  display: inline-block;
+  text-align: left;
 }
