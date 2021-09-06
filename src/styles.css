@@ -105,6 +105,7 @@ p {
 /* Previous suggestion history */
 .suggestion-history {
   padding: 10px 100px 100px;
+  min-height: 42vh;
 }
 
 .individual-suggestion {
