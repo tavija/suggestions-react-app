@@ -39,7 +39,7 @@ export function Header(props: IHeader): JSX.Element {
       <div className="suggestion-history-header">
         <div className="flex-column header-menu">
           <div></div>
-          <select onChange={handleUserClick} className="user-list right-column new-suggestion-user-list">
+          <select onChange={handleUserClick} className="user-list right-column suggestion-history-user-list">
             {[...userList.map((user) => (<option key={user} value={user} selected={(user === props.username)}>{user}</option>))]}
             <option value="admin" selected={"admin" === props.username}>Admin</option>
           </select>

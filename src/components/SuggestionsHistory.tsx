@@ -20,6 +20,7 @@ export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
       setUsername={props.setUsername}
       setPageView={props.setPageView}
       pageView={props.pageView}
+      username={props.username}
     />
     <div className="suggestion-history">
       {[...props.suggestionsList]

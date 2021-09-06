@@ -6,7 +6,7 @@ import { SuggestionProps } from "./Types";
 
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
-  const [username, setUsername] = useState("admin");
+  const [username, setUsername] = useState("Tavija");
   const [pageView, setPageView] = useState("allSugestions");
 
   const apiBaseURL = process.env.REACT_APP_API_BASE;

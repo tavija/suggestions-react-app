@@ -15,7 +15,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [name, setName] = useState("anonymous");
   const [firstSubmit, setFirstSubmit] = useState(false)
 
-  async function submitSuggestion(event: React.FormEvent<HTMLFormElement>) {
+  async function submitSuggestion(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     const body = { title, content, name };
     const requestOptions = {
@@ -42,7 +42,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       setFirstSubmit(true)
     } else {
       console.log("empty title");
-      return(
+      return (
         <div>Hello</div>
       )
     }
@@ -58,6 +58,8 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     setName(event.target.value)
   }
 
+
+
   return (
     <div>
       <Header
@@ -65,48 +67,56 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
         setUsername={props.setUsername}
         setPageView={props.setPageView}
         pageView={props.pageView}
+        username={props.username}
       />
-      <form id="newSuggestion" onSubmit={submitSuggestion} className="new-suggestion">
-        <label className="form-label">Title: </label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-          className="title-box"
-        />
-        <label className="form-label">Content: </label>
-        <input
-          type="text"
-          id="content"
-          value={content}
-          onChange={(event) => {
-            setContent(event.target.value);
-          }}
-          className="content-box"
-        />
+      <div className="new-suggestion">
+        <div className="new-suggestion-flex-column">
+          {/* <label className="form-label">Title: </label> */}
+          <p className="form-label new-suggestion-left-column">Title</p>
+          <textarea
+            id="title"
+            value={title}
+            onChange={(event) => { setTitle(event.target.value); }}
+            className="title-box new-suggestion-right-column"
+            rows={1}
+            cols={1}
+            required
+          />
+          <p className="form-label new-suggestion-left-column">Content</p>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(event) => {
+              setContent(event.target.value);
+            }}
+            className="content-box new-suggestion-right-column"
+            rows={5}
+            cols={5}
+            required
+          />
+        </div>
         <fieldset>
           <legend>Submit as:</legend>
-            <label><input
+          <label><input
+            type="radio"
+            name="anonymous"
+            value="anonymous"
+            onChange={handleNameChange}
+            checked={"anonymous" === name}
+          />Anonymous</label>
+          <label>
+            <input
               type="radio"
-              name="anonymous"
-              value="anonymous"
-              onChange={handleNameChange}
-              checked={"anonymous" === name}
-            />Anonymous</label>
-            <label>
-              <input
-                type="radio"
-                name={props.username}
-                value={props.username}
-                onChange={(event) => handleNameChange(event)}
-                checked={props.username === name}
-              />{props.username.charAt(0).toUpperCase() + props.username.slice(1)}</label>
+              name={props.username}
+              value={props.username}
+              onChange={(event) => handleNameChange(event)}
+              checked={props.username === name}
+            />{props.username.charAt(0).toUpperCase() + props.username.slice(1)}</label>
         </fieldset>
         <div className="center">
-          <input type="submit" value="Submit" className="button" />
+          <button type="submit" onClick={submitSuggestion} className="button">
+            Submit
+          </button>
           <button type="reset" onClick={resetSuggestion} className="button">
             Reset
           </button>
@@ -114,7 +124,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
         {firstSubmit === true &&
           <p className="center">Thank you for submitting your suggestion! You can submit another one or return to view all suggestions.</p>
         }
-      </form>
+      </div>
     </div>
   );
 }
