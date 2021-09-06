@@ -14,6 +14,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [content, setContent] = useState("");
   const [name, setName] = useState("anonymous");
   const [firstSubmit, setFirstSubmit] = useState(false)
+  const [titleAlert, setTitleAlert] = useState(false)
 
   async function submitSuggestion(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
@@ -41,10 +42,8 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       resetSuggestion();
       setFirstSubmit(true)
     } else {
-      console.log("empty title");
-      return (
-        <div>Hello</div>
-      )
+      setFirstSubmit(false)
+      setTitleAlert(true)
     }
   }
 
@@ -52,12 +51,12 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     setContent("");
     setTitle("");
     setFirstSubmit(false)
+    setTitleAlert(false)
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
     setName(event.target.value)
   }
-
 
 
   return (
@@ -71,8 +70,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       />
       <div className="new-suggestion">
         <div className="new-suggestion-flex-column">
-          {/* <label className="form-label">Title: </label> */}
-          <p className="form-label new-suggestion-left-column">Title</p>
+          <label className="form-label new-suggestion-left-column">Title</label>
           <textarea
             id="title"
             value={title}
@@ -80,9 +78,9 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             className="title-box new-suggestion-right-column"
             rows={1}
             cols={1}
-            required
-          />
-          <p className="form-label new-suggestion-left-column">Content</p>
+            maxLength={200}
+            required/>
+          <label className="form-label new-suggestion-left-column">Details</label>
           <textarea
             id="content"
             value={content}
@@ -92,8 +90,8 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             className="content-box new-suggestion-right-column"
             rows={5}
             cols={5}
-            required
-          />
+            wrap="off"
+            required/>
         </div>
         <fieldset>
           <legend>Submit as:</legend>
@@ -123,6 +121,9 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
         </div>
         {firstSubmit === true &&
           <p className="center">Thank you for submitting your suggestion! You can submit another one or return to view all suggestions.</p>
+        }
+        {titleAlert === true &&
+          <p className="center">Please enter title to submit your Suggestion.</p>
         }
       </div>
     </div>

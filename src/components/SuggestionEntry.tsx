@@ -61,6 +61,7 @@ export default function SuggestionEntry(
     <div className="individual-suggestion">
       <h2>{props.suggestion.title}</h2>
       <p>{props.suggestion.content}</p>
+      <br></br>
       <p className="suggestion-info">
         <b>{votesCount} votes.</b> Posted at: {props.suggestion.time.slice(0, 10)}{" "}
         {props.suggestion.time.slice(11, 16)} by {giveName()}
