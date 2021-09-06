@@ -8,12 +8,11 @@ import { SuggestionProps } from "./Types";
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
   const [username, setUsername] = useState("admin");
-  //TODO delete votes useState when POST request for vote has been coded in handleVote()
   const [pageView, setPageView] = useState("allSugestions");
 
+  const apiBaseURL = process.env.REACT_APP_API_BASE;
   const getSuggestions = async () => {
     try {
-      const apiBaseURL = process.env.REACT_APP_API_BASE;
       const response = await fetch(apiBaseURL + "/suggestions");
       const jsonData = await response.json();
 
@@ -37,7 +36,6 @@ function App(): JSX.Element {
     };
     if (typeof suggestion_id === "number") {
       try {
-        const apiBaseURL = process.env.REACT_APP_API_BASE;
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
         console.log(await response.json());
         getSuggestions();
@@ -47,32 +45,42 @@ function App(): JSX.Element {
     }
   }
 
-  function handleDelete() {
-    console.log("would delete");
+  async function handleDelete(suggestion_id: number) {
+    if (typeof suggestion_id === "number") {
+      try {
+        console.log("would delete with id: ", suggestion_id);
+        const response = await fetch(apiBaseURL + "/suggestion/" + suggestion_id.toString(), { method: "DELETE" })
+        console.log(await response.json());
+        getSuggestions();
+      } catch (err) {
+        console.error(err.message)
+      }
+    }
   }
 
-  return (
-    <div>
-      <Header
-        pageTitle="Suggestions Box"
-        setUsername={setUsername}
-        setPageView={setPageView}
-      />
-      <div className="flex-container">
-        {pageView === "enterNewSuggestion" && (
-          <NewSuggestion fetchSuggestionsList={getSuggestions} />
-        )}
-        {pageView === "allSugestions" && (
-          <SuggestionsHistory
-            suggestionsList={suggestionsList}
-            username={username}
-            handleVote={handleVote}
-            handleDelete={handleDelete}
-          />
-        )}
-      </div>
+
+return (
+  <div>
+    <Header
+      pageTitle="Suggestions Box"
+      setUsername={setUsername}
+      setPageView={setPageView}
+    />
+    <div className="flex-container">
+      {pageView === "enterNewSuggestion" && (
+        <NewSuggestion fetchSuggestionsList={getSuggestions} />
+      )}
+      {pageView === "allSugestions" && (
+        <SuggestionsHistory
+          suggestionsList={suggestionsList}
+          username={username}
+          handleVote={handleVote}
+          handleDelete={handleDelete}
+        />
+      )}
     </div>
-  );
+  </div>
+);
 }
 
 export default App;

@@ -4,7 +4,7 @@ import SuggestionEntry from "./SuggestionEntry";
 interface ISuggestionsHistory {
   suggestionsList: SuggestionProps[];
   username: string;
-  handleDelete: () => void;
+  handleDelete: (suggestion_id: number) => Promise<void>;
   handleVote: (suggestion_id: number) => void;
 }
 

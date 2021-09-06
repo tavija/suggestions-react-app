@@ -3,7 +3,7 @@ import { SuggestionProps } from "../Types";
 
 interface ISuggestionsHistory {
   suggestion: SuggestionProps;
-  handleDelete: () => void;
+  handleDelete: (suggestion_id: number) => Promise<void>;
   handleVote: (suggestion_id: number) => void;
   username: string;
 }
@@ -22,7 +22,7 @@ export default function SuggestionEntry(
 
   function handleClick(user: string) {
     if (user === "admin") {
-      return props.handleDelete();
+      return props.handleDelete(props.suggestion.suggestion_id);
     } else {
       return props.handleVote(props.suggestion.suggestion_id);
     }
