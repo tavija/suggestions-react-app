@@ -60,7 +60,7 @@ export default function SuggestionEntry(
   return (
     <div className="individual-suggestion">
       <h2>{props.suggestion.title}</h2>
-      <p>{props.suggestion.content}</p>
+      <p className="suggestion-content">{props.suggestion.content}</p>
       <br></br>
       <p className="suggestion-info">
         <b>{votesCount} votes.</b> Posted at:{" "}
