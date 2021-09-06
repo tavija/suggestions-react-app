@@ -110,7 +110,7 @@ p {
 
 .individual-suggestion {
   border-bottom: 2px solid rgb(74, 124, 148);
-  word-break: break-all;
+  word-break: break-word;
 }
 
 .suggestion-info {
