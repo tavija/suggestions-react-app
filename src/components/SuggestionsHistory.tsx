@@ -34,6 +34,11 @@ export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
               username={props.username}
             />
           ))}
+        {props.suggestionsList.length === 0 && (
+          <h3 className="center">
+            Suggestion box is empty. Maybe you could submit one?
+          </h3>
+        )}
       </div>
     </div>
   );
