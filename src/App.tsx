@@ -21,7 +21,6 @@ function App(): JSX.Element {
     }
   };
 
-
   //was asked to remove dependancies all together. why?
   useEffect(() => {
     getSuggestions();
@@ -51,37 +50,40 @@ function App(): JSX.Element {
     if (typeof suggestion_id === "number") {
       try {
         console.log("would delete with id: ", suggestion_id);
-        const response = await fetch(apiBaseURL + "/suggestion/" + suggestion_id.toString(), { method: "DELETE" })
+        const response = await fetch(
+          apiBaseURL + "/suggestion/" + suggestion_id.toString(),
+          { method: "DELETE" }
+        );
         console.log(await response.json());
         getSuggestions();
       } catch (err) {
-        console.error(err.message)
+        console.error(err.message);
       }
     }
   }
 
-
   return (
-      <div className="app">
-        {pageView === "enterNewSuggestion" && (
-          <NewSuggestion
-            fetchSuggestionsList={getSuggestions}
-            setUsername={setUsername}
-            setPageView={setPageView}
-            pageView={pageView}
-            username={username} />
-        )}
-        {pageView === "allSugestions" && (
-          <SuggestionsHistory
-            suggestionsList={suggestionsList}
-            username={username}
-            handleVote={handleVote}
-            handleDelete={handleDelete}
-            setUsername={setUsername}
-            setPageView={setPageView}
-            pageView={pageView}
-          />
-        )}
+    <div className="app">
+      {pageView === "enterNewSuggestion" && (
+        <NewSuggestion
+          fetchSuggestionsList={getSuggestions}
+          setUsername={setUsername}
+          setPageView={setPageView}
+          pageView={pageView}
+          username={username}
+        />
+      )}
+      {pageView === "allSugestions" && (
+        <SuggestionsHistory
+          suggestionsList={suggestionsList}
+          username={username}
+          handleVote={handleVote}
+          handleDelete={handleDelete}
+          setUsername={setUsername}
+          setPageView={setPageView}
+          pageView={pageView}
+        />
+      )}
     </div>
   );
 }

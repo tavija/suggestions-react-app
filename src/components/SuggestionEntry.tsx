@@ -63,18 +63,19 @@ export default function SuggestionEntry(
       <p>{props.suggestion.content}</p>
       <br></br>
       <p className="suggestion-info">
-        <b>{votesCount} votes.</b> Posted at: {props.suggestion.time.slice(0, 10)}{" "}
+        <b>{votesCount} votes.</b> Posted at:{" "}
+        {props.suggestion.time.slice(0, 10)}{" "}
         {props.suggestion.time.slice(11, 16)} by {giveName()}
       </p>
       <div className="center">
-      {props.username === "admin" && (
-        <button className="button" onClick={() => handleClick("user")}>
-          {buttonName("user")}
+        {props.username === "admin" && (
+          <button className="button" onClick={() => handleClick("user")}>
+            {buttonName("user")}
+          </button>
+        )}
+        <button className="button" onClick={() => handleClick(props.username)}>
+          {buttonName(props.username)}
         </button>
-      )}
-      <button className="button" onClick={() => handleClick(props.username)}>
-        {buttonName(props.username)}
-      </button>
       </div>
     </div>
   );

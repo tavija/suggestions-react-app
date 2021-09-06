@@ -16,25 +16,25 @@ export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {
   return (
     <div>
       <Header
-      pageTitle="Suggestions Box"
-      setUsername={props.setUsername}
-      setPageView={props.setPageView}
-      pageView={props.pageView}
-      username={props.username}
-    />
-    <div className="suggestion-history">
-      {[...props.suggestionsList]
-        .reverse()
-        .map((suggestion: SuggestionProps) => (
-          <SuggestionEntry
-            key={suggestion.suggestion_id}
-            suggestion={suggestion}
-            handleVote={props.handleVote}
-            handleDelete={props.handleDelete}
-            username={props.username}
-          />
-        ))}
-        </div>
+        pageTitle="Suggestions Box"
+        setUsername={props.setUsername}
+        setPageView={props.setPageView}
+        pageView={props.pageView}
+        username={props.username}
+      />
+      <div className="suggestion-history">
+        {[...props.suggestionsList]
+          .reverse()
+          .map((suggestion: SuggestionProps) => (
+            <SuggestionEntry
+              key={suggestion.suggestion_id}
+              suggestion={suggestion}
+              handleVote={props.handleVote}
+              handleDelete={props.handleDelete}
+              username={props.username}
+            />
+          ))}
+      </div>
     </div>
   );
 }

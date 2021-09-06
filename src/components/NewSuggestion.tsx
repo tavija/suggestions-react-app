@@ -13,10 +13,12 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [name, setName] = useState("anonymous");
-  const [firstSubmit, setFirstSubmit] = useState(false)
-  const [titleAlert, setTitleAlert] = useState(false)
+  const [firstSubmit, setFirstSubmit] = useState(false);
+  const [titleAlert, setTitleAlert] = useState(false);
 
-  async function submitSuggestion(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  async function submitSuggestion(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
     event.preventDefault();
     const body = { title, content, name };
     const requestOptions = {
@@ -40,24 +42,23 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
         console.error(err.message);
       }
       resetSuggestion();
-      setFirstSubmit(true)
+      setFirstSubmit(true);
     } else {
-      setFirstSubmit(false)
-      setTitleAlert(true)
+      setFirstSubmit(false);
+      setTitleAlert(true);
     }
   }
 
   function resetSuggestion() {
     setContent("");
     setTitle("");
-    setFirstSubmit(false)
-    setTitleAlert(false)
+    setFirstSubmit(false);
+    setTitleAlert(false);
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setName(event.target.value)
+    setName(event.target.value);
   }
-
 
   return (
     <div>
@@ -74,13 +75,18 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
           <textarea
             id="title"
             value={title}
-            onChange={(event) => { setTitle(event.target.value); }}
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
             className="title-box new-suggestion-right-column"
             rows={1}
             cols={1}
             maxLength={200}
-            required/>
-          <label className="form-label new-suggestion-left-column">Details</label>
+            required
+          />
+          <label className="form-label new-suggestion-left-column">
+            Details
+          </label>
           <textarea
             id="content"
             value={content}
@@ -91,17 +97,21 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             rows={5}
             cols={5}
             wrap="off"
-            required/>
+            required
+          />
         </div>
         <fieldset>
           <legend>Submit as:</legend>
-          <label><input
-            type="radio"
-            name="anonymous"
-            value="anonymous"
-            onChange={handleNameChange}
-            checked={"anonymous" === name}
-          />Anonymous</label>
+          <label>
+            <input
+              type="radio"
+              name="anonymous"
+              value="anonymous"
+              onChange={handleNameChange}
+              checked={"anonymous" === name}
+            />
+            Anonymous
+          </label>
           <label>
             <input
               type="radio"
@@ -109,7 +119,9 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
               value={props.username}
               onChange={(event) => handleNameChange(event)}
               checked={props.username === name}
-            />{props.username.charAt(0).toUpperCase() + props.username.slice(1)}</label>
+            />
+            {props.username.charAt(0).toUpperCase() + props.username.slice(1)}
+          </label>
         </fieldset>
         <div className="center">
           <button type="submit" onClick={submitSuggestion} className="button">
@@ -119,12 +131,17 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             Reset
           </button>
         </div>
-        {firstSubmit === true &&
-          <p className="center">Thank you for submitting your suggestion! You can submit another one or return to view all suggestions.</p>
-        }
-        {titleAlert === true &&
-          <p className="center">Please enter title to submit your Suggestion.</p>
-        }
+        {firstSubmit === true && (
+          <p className="center">
+            Thank you for submitting your suggestion! You can submit another one
+            or return to view all suggestions.
+          </p>
+        )}
+        {titleAlert === true && (
+          <p className="center">
+            Please enter title to submit your Suggestion.
+          </p>
+        )}
       </div>
     </div>
   );
