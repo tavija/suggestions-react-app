@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Header } from "./components/Header";
 import { NewSuggestion } from "./components/NewSuggestion";
 import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
@@ -7,7 +8,7 @@ import { SuggestionProps } from "./Types";
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
   const [username, setUsername] = useState("Tavija");
-  const [pageView, setPageView] = useState("allSugestions");
+  const [pageView, setPageView] = useState("allSuggestions");
 
   const apiBaseURL = process.env.REACT_APP_API_BASE;
   const getSuggestions = async () => {
@@ -21,7 +22,6 @@ function App(): JSX.Element {
     }
   };
 
-  //was asked to remove dependancies all together. why?
   useEffect(() => {
     getSuggestions();
   });
@@ -34,6 +34,7 @@ function App(): JSX.Element {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
+
     if (typeof suggestion_id === "number") {
       try {
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
@@ -46,6 +47,7 @@ function App(): JSX.Element {
     }
   }
 
+  //DELETE request to delete suggestion from DB when 'Delete' button is clicked
   async function handleDelete(suggestion_id: number) {
     if (typeof suggestion_id === "number") {
       try {
@@ -64,7 +66,14 @@ function App(): JSX.Element {
 
   return (
     <div className="app">
-      {pageView === "enterNewSuggestion" && (
+      <Header
+        pageTitle={(pageView === "allSuggestions")? "Suggestions Box" : "Make a suggestion"}
+        setUsername={setUsername}
+        setPageView={setPageView}
+        pageView={pageView}
+        username={username}
+      />
+      {pageView === "newSuggestion" && (
         <NewSuggestion
           fetchSuggestionsList={getSuggestions}
           setUsername={setUsername}
@@ -73,7 +82,7 @@ function App(): JSX.Element {
           username={username}
         />
       )}
-      {pageView === "allSugestions" && (
+      {pageView === "allSuggestions" && (
         <SuggestionsHistory
           suggestionsList={suggestionsList}
           username={username}

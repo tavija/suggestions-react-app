@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Header } from "./header";
 
 interface NewSuggestionProps {
   fetchSuggestionsList: () => Promise<void>; //could be just () => void
@@ -65,13 +64,6 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
 
   return (
     <div>
-      <Header
-        pageTitle="Make a suggestion"
-        setUsername={props.setUsername}
-        setPageView={props.setPageView}
-        pageView={props.pageView}
-        username={props.username}
-      />
       <div className="new-suggestion">
         <div className="new-suggestion-flex-column">
           <label className="form-label new-suggestion-left-column">Title</label>

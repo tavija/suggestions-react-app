@@ -8,7 +8,7 @@ interface ISuggestionsHistory {
   username: string;
 }
 
-export default function SuggestionEntry(
+export function SuggestionEntry(
   props: ISuggestionsHistory
 ): JSX.Element {
   const [votesCount, setVotesCount] = useState(0);

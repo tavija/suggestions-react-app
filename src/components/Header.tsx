@@ -57,7 +57,7 @@ export function Header(props: IHeader): JSX.Element {
           <button
             className="cancel-button"
             onClick={() => {
-              handlePageClick("allSugestions");
+              handlePageClick("allSuggestions");
             }}
           >
             Return
@@ -78,7 +78,6 @@ export function Header(props: IHeader): JSX.Element {
         </div>
         <div className="header center">
           <h1 className="page-title">{props.pageTitle}</h1>
-          {props.pageView === "allSugestions" && (
             <button
               className="button"
               style={{ width: 200 }}
@@ -88,7 +87,6 @@ export function Header(props: IHeader): JSX.Element {
             >
               Make a suggestion
             </button>
-          )}
         </div>
       </div>
     );
