@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface NewSuggestionProps {
-  fetchSuggestionsList: () => Promise<void>; //could be just () => void
+  fetchSuggestionsList: () => Promise<void>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPageView: React.Dispatch<React.SetStateAction<string>>;
   pageView: string;
@@ -13,7 +13,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
   const [content, setContent] = useState("");
   const [name, setName] = useState("anonymous");
   const [firstSubmit, setFirstSubmit] = useState(false);
-  const [titleAlert, setTitleAlert] = useState(false);
+  const [emptyTitleAlert, setEmptyTitleAlert] = useState(false);
 
   async function submitSuggestion(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -28,18 +28,16 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     if (title !== "") {
       try {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const response = await fetch(
           apiBaseURL + "/suggestion",
           requestOptions
         );
         if (response.status === 201){
-        props.fetchSuggestionsList();
+          props.fetchSuggestionsList();
         } else {
           console.error("Failed to post. Error: ", response.status)
         }
-        //tells the parent to call the function to getSuggestions again to display new info
-        //props.fetchSuggestionsList(); //if there was follow up action, then use await
+        
       } catch (err) {
         console.error(err.message);
       }
@@ -47,7 +45,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
       setFirstSubmit(true);
     } else {
       setFirstSubmit(false);
-      setTitleAlert(true);
+      setEmptyTitleAlert(true);
     }
   }
 
@@ -55,7 +53,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     setContent("");
     setTitle("");
     setFirstSubmit(false);
-    setTitleAlert(false);
+    setEmptyTitleAlert(false);
   }
 
   function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -129,7 +127,7 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             or return to view all suggestions.
           </p>
         )}
-        {titleAlert === true && (
+        {emptyTitleAlert === true && (
           <p className="center">
             Please enter title to submit your Suggestion.
           </p>

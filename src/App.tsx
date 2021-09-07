@@ -88,9 +88,9 @@ function App(): JSX.Element {
           username={username}
           handleVote={handleVote}
           handleDelete={handleDelete}
-          setUsername={setUsername}
-          setPageView={setPageView}
-          pageView={pageView}
+          // setUsername={setUsername}
+          // setPageView={setPageView}
+          // pageView={pageView}
         />
       )}
     </div>

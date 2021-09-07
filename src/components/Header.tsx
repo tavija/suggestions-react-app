@@ -30,7 +30,8 @@ export function Header(props: IHeader): JSX.Element {
     "Albie",
     "Marvin",
   ];
-
+  
+  //Select component for Users List
   function selectTagWithUsers(style: string) {
     return (
       <select
