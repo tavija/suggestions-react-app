@@ -8,7 +8,6 @@ interface IHeader {
 }
 
 export function Header(props: IHeader): JSX.Element {
-
   //Sets different user
   function handleUserClick(event: React.ChangeEvent<HTMLSelectElement>) {
     props.setUsername(event.target.value);

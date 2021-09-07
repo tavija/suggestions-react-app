@@ -4,8 +4,8 @@ import { SuggestionEntry } from "./SuggestionEntry";
 interface ISuggestionsHistory {
   suggestionsList: SuggestionProps[];
   username: string;
-  handleDelete: (suggestionId: number) => Promise<void>;
-  handleVote: (suggestionId: number) => Promise<void>;
+  handleDelete(suggestionId: number): Promise<void>;
+  handleVote(suggestionId: number): Promise<void>;
 }
 
 export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {

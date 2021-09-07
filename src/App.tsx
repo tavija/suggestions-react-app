@@ -16,8 +16,12 @@ function App(): JSX.Element {
     try {
       const response = await fetch(apiBaseURL + "/suggestions");
       const receivedSuggestions = await response.json();
-
-      setSuggestionsList(receivedSuggestions);
+      
+      if (response.status === 200){
+        setSuggestionsList(receivedSuggestions);
+      } else {
+        console.error("Failed to post suggestion. Error: ", response.status)
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -30,19 +34,21 @@ function App(): JSX.Element {
 
   //Send POST request to send vote to DB when 'Upvote' button is clicked
   async function handleVote(suggestionId: number) {
-    const body = { suggestionId, username };
+    const body = {suggestion_id: suggestionId, username};
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
-
     if (typeof suggestionId === "number") {
       try {
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
-        console.log(await response.json());
 
-        getSuggestions();
+        if (response.status === 201){ //Success response status
+          getSuggestions();
+        } else {
+          console.error("Failed to post vote. Error: ", response.status)
+        }
       } catch (err) {
         console.error(err.message);
       }
@@ -53,13 +59,11 @@ function App(): JSX.Element {
   async function handleDelete(suggestionId: number) {
     if (typeof suggestionId === "number") {
       try {
-        console.log("would delete with id: ", suggestionId);
         const response = await fetch(
           apiBaseURL + "/suggestion/" + suggestionId.toString(),
           { method: "DELETE" }
         );
-        console.log(await response.json());
-        if (response.status === 200){
+        if (response.status === 200){ //Success response status
           getSuggestions();
         } else {
           console.error("Failed to delete. Error: ", response.status)
