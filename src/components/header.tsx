@@ -7,10 +7,13 @@ interface IHeader {
 }
 
 export function Header(props: IHeader): JSX.Element {
+
+  //Sets different user
   function handleUserClick(event: React.ChangeEvent<HTMLSelectElement>) {
     props.setUsername(event.target.value);
   }
 
+  //Sets different page view
   function handlePageClick(page: string) {
     props.setPageView(page);
   }
@@ -28,7 +31,26 @@ export function Header(props: IHeader): JSX.Element {
     "Marvin",
   ];
 
-  if (props.pageView === "enterNewSuggestion") {
+  function selectTagWithUsers(style: string) {
+    return (
+      <select
+        onChange={handleUserClick}
+        className={"user-list right-column " + style}
+        defaultValue={props.username}
+      >
+        {[
+          ...userList.map((user) => (
+            <option key={user} value={user}>
+              {user}
+            </option>
+          )),
+        ]}
+        <option value="admin">Admin</option>
+      </select>
+    )
+  }
+
+  if (props.pageView === "newSuggestion") {
     return (
       <div className="new-suggestion-header">
         <div className="flex-column header-menu">
@@ -40,20 +62,7 @@ export function Header(props: IHeader): JSX.Element {
           >
             Return
           </button>
-          <select
-            onChange={handleUserClick}
-            className="user-list right-column new-suggestion-user-list"
-            defaultValue={props.username}
-          >
-            {[
-              ...userList.map((user) => (
-                <option key={user} value={user}>
-                  {user}
-                </option>
-              )),
-            ]}
-            <option value="admin">Admin</option>
-          </select>
+          {selectTagWithUsers("new-suggestion-user-list")}
         </div>
         <div className="header center">
           <h1 className="page-title">{props.pageTitle}</h1>
@@ -65,20 +74,7 @@ export function Header(props: IHeader): JSX.Element {
       <div className="suggestion-history-header">
         <div className="flex-column header-menu">
           <div></div>
-          <select
-            onChange={handleUserClick}
-            className="user-list right-column suggestion-history-user-list"
-            defaultValue={props.username}
-          >
-            {[
-              ...userList.map((user) => (
-                <option key={user} value={user}>
-                  {user}
-                </option>
-              )),
-            ]}
-            <option value="admin">Admin</option>
-          </select>
+          {selectTagWithUsers("suggestion-history-user-list")}
         </div>
         <div className="header center">
           <h1 className="page-title">{props.pageTitle}</h1>
@@ -87,7 +83,7 @@ export function Header(props: IHeader): JSX.Element {
               className="button"
               style={{ width: 200 }}
               onClick={() => {
-                handlePageClick("enterNewSuggestion");
+                handlePageClick("newSuggestion");
               }}
             >
               Make a suggestion
