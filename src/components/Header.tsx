@@ -1,7 +1,6 @@
 import { PageId } from "../Types";
 
 interface IHeader {
-  pageTitle: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPageView: React.Dispatch<React.SetStateAction<PageId>>;
   pageView: string;
@@ -32,9 +31,9 @@ export function Header(props: IHeader): JSX.Element {
     "Albie",
     "Marvin",
   ];
-  
+
   //Select component for Users List
-  function selectTagWithUsers(style: string) {
+  function displaySelectTagWithUsers(style: string) {
     return (
       <select
         onChange={handleUserClick}
@@ -53,6 +52,12 @@ export function Header(props: IHeader): JSX.Element {
     )
   }
 
+  function displayHeaderTitle() {
+    return (
+      <h1 className="page-title">{(props.pageView === "allSuggestions") ? "Suggestions Box" : "Make a suggestion"}</h1>
+    )
+  }
+
   if (props.pageView === "newSuggestion") {
     return (
       <div className="new-suggestion-header">
@@ -65,10 +70,10 @@ export function Header(props: IHeader): JSX.Element {
           >
             Return
           </button>
-          {selectTagWithUsers("new-suggestion-user-list")}
+          {displaySelectTagWithUsers("new-suggestion-user-list")}
         </div>
         <div className="header center">
-          <h1 className="page-title">{props.pageTitle}</h1>
+        {displayHeaderTitle()}
         </div>
       </div>
     );
@@ -77,19 +82,19 @@ export function Header(props: IHeader): JSX.Element {
       <div className="suggestion-history-header">
         <div className="flex-column header-menu">
           <div></div>
-          {selectTagWithUsers("suggestion-history-user-list")}
+          {displaySelectTagWithUsers("suggestion-history-user-list")}
         </div>
         <div className="header center">
-          <h1 className="page-title">{props.pageTitle}</h1>
-            <button
-              className="button"
-              style={{ width: 200 }}
-              onClick={() => {
-                handlePageClick("newSuggestion");
-              }}
-            >
-              Make a suggestion
-            </button>
+          {displayHeaderTitle()}
+          <button
+            className="button"
+            style={{ width: 200 }}
+            onClick={() => {
+              handlePageClick("newSuggestion");
+            }}
+          >
+            Make a suggestion
+          </button>
         </div>
       </div>
     );

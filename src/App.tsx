@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
-import { NewSuggestion } from "./components/NewSuggestion";
+import { NewSuggestionForm } from "./components/NewSuggestion";
 import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
 import { PageId, SuggestionProps } from "./Types";
@@ -28,16 +28,16 @@ function App(): JSX.Element {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
-  //POST request to send vote to DB when 'Upvote' button is clicked
-  async function handleVote(suggestion_id: number) {
-    const body = { suggestion_id, username };
+  //Send POST request to send vote to DB when 'Upvote' button is clicked
+  async function handleVote(suggestionId: number) {
+    const body = { suggestionId, username };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
 
-    if (typeof suggestion_id === "number") {
+    if (typeof suggestionId === "number") {
       try {
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
         console.log(await response.json());
@@ -49,13 +49,13 @@ function App(): JSX.Element {
     }
   }
 
-  //DELETE request to delete suggestion from DB when 'Delete' button is clicked
-  async function handleDelete(suggestion_id: number) {
-    if (typeof suggestion_id === "number") {
+  //Send DELETE request to delete suggestion from DB when 'Delete' button is clicked
+  async function handleDelete(suggestionId: number) {
+    if (typeof suggestionId === "number") {
       try {
-        console.log("would delete with id: ", suggestion_id);
+        console.log("would delete with id: ", suggestionId);
         const response = await fetch(
-          apiBaseURL + "/suggestion/" + suggestion_id.toString(),
+          apiBaseURL + "/suggestion/" + suggestionId.toString(),
           { method: "DELETE" }
         );
         console.log(await response.json());
@@ -73,17 +73,14 @@ function App(): JSX.Element {
   return (
     <div className="app">
       <Header
-        pageTitle={(pageView === "allSuggestions")? "Suggestions Box" : "Make a suggestion"}
         setUsername={setUsername}
         setPageView={setPageView}
         pageView={pageView}
         username={username}
       />
       {pageView === "newSuggestion" && (
-        <NewSuggestion
+        <NewSuggestionForm 
           fetchSuggestionsList={getSuggestions}
-          setUsername={setUsername}
-          setPageView={setPageView}
           username={username}
         />
       )}
