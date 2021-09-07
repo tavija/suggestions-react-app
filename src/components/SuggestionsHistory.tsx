@@ -6,9 +6,6 @@ interface ISuggestionsHistory {
   username: string;
   handleDelete: (suggestion_id: number) => Promise<void>;
   handleVote: (suggestion_id: number) => void;
-  // setUsername: React.Dispatch<React.SetStateAction<string>>;
-  // setPageView: React.Dispatch<React.SetStateAction<string>>;
-  // pageView: string;
 }
 
 export function SuggestionsHistory(props: ISuggestionsHistory): JSX.Element {

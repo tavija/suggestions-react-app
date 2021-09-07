@@ -4,17 +4,20 @@ interface NewSuggestionProps {
   fetchSuggestionsList: () => Promise<void>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPageView: React.Dispatch<React.SetStateAction<string>>;
-  pageView: string;
   username: string;
 }
 
 export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
+  //useState for setting title, content, name of new suggestion. Used later to POST suggestion
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [name, setName] = useState("anonymous");
+
+  //useStates used for conditional rendering to display additional messages
   const [firstSubmit, setFirstSubmit] = useState(false);
   const [emptyTitleAlert, setEmptyTitleAlert] = useState(false);
 
+  //POST request to send suggestion to DB when 'Submit' button is clicked
   async function submitSuggestion(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -32,23 +35,24 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
           apiBaseURL + "/suggestion",
           requestOptions
         );
-        if (response.status === 201){
+        if (response.status === 201) {
           props.fetchSuggestionsList();
+          resetSuggestion();
+          setFirstSubmit(true);
         } else {
           console.error("Failed to post. Error: ", response.status)
         }
-        
+
       } catch (err) {
         console.error(err.message);
       }
-      resetSuggestion();
-      setFirstSubmit(true);
     } else {
       setFirstSubmit(false);
       setEmptyTitleAlert(true);
     }
   }
 
+  //Resets fields of new suggestion form
   function resetSuggestion() {
     setContent("");
     setTitle("");
@@ -56,8 +60,8 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     setEmptyTitleAlert(false);
   }
 
-  function handleNameChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setName(event.target.value);
+  function capitalizeFirstLetter(word: string) {
+    return (word.charAt(0).toUpperCase() + word.slice(1))
   }
 
   return (
@@ -97,7 +101,9 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
               type="radio"
               name="anonymous"
               value="anonymous"
-              onChange={handleNameChange}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
               checked={"anonymous" === name}
             />
             Anonymous
@@ -107,10 +113,12 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
               type="radio"
               name={props.username}
               value={props.username}
-              onChange={(event) => handleNameChange(event)}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
               checked={props.username === name}
             />
-            {props.username.charAt(0).toUpperCase() + props.username.slice(1)}
+            {capitalizeFirstLetter(props.username)}
           </label>
         </fieldset>
         <div className="center">

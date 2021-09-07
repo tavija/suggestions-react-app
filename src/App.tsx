@@ -78,7 +78,6 @@ function App(): JSX.Element {
           fetchSuggestionsList={getSuggestions}
           setUsername={setUsername}
           setPageView={setPageView}
-          pageView={pageView}
           username={username}
         />
       )}
@@ -88,9 +87,6 @@ function App(): JSX.Element {
           username={username}
           handleVote={handleVote}
           handleDelete={handleDelete}
-          // setUsername={setUsername}
-          // setPageView={setPageView}
-          // pageView={pageView}
         />
       )}
     </div>
