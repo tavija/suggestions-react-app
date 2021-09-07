@@ -5,3 +5,5 @@ export interface SuggestionProps {
   name: string;
   time: string;
 }
+
+export type PageId = "allSuggestions" | "newSuggestion";

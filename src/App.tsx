@@ -3,28 +3,30 @@ import { Header } from "./components/Header";
 import { NewSuggestion } from "./components/NewSuggestion";
 import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
-import { SuggestionProps } from "./Types";
+import { PageId, SuggestionProps } from "./Types";
+
 
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
   const [username, setUsername] = useState("Tavija");
-  const [pageView, setPageView] = useState("allSuggestions");
+  const [pageView, setPageView] = useState<PageId>("allSuggestions");
 
   const apiBaseURL = process.env.REACT_APP_API_BASE;
   const getSuggestions = async () => {
     try {
       const response = await fetch(apiBaseURL + "/suggestions");
-      const jsonData = await response.json();
+      const receivedSuggestions = await response.json();
 
-      setSuggestionsList(jsonData);
+      setSuggestionsList(receivedSuggestions);
     } catch (err) {
       console.error(err.message);
     }
   };
-
+  
   useEffect(() => {
     getSuggestions();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   //POST request to send vote to DB when 'Upvote' button is clicked
   async function handleVote(suggestion_id: number) {
@@ -57,7 +59,11 @@ function App(): JSX.Element {
           { method: "DELETE" }
         );
         console.log(await response.json());
-        getSuggestions();
+        if (response.status === 200){
+          getSuggestions();
+        } else {
+          console.error("Failed to delete. Error: ", response.status)
+        }
       } catch (err) {
         console.error(err.message);
       }

@@ -1,7 +1,9 @@
+import { PageId } from "../Types";
+
 interface IHeader {
   pageTitle: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
-  setPageView: React.Dispatch<React.SetStateAction<string>>;
+  setPageView: React.Dispatch<React.SetStateAction<PageId>>;
   pageView: string;
   username: string;
 }
@@ -14,7 +16,7 @@ export function Header(props: IHeader): JSX.Element {
   }
 
   //Sets different page view
-  function handlePageClick(page: string) {
+  function handlePageClick(page: PageId) {
     props.setPageView(page);
   }
 

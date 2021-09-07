@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { PageId } from "../Types";
 
 interface NewSuggestionProps {
   fetchSuggestionsList: () => Promise<void>;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
-  setPageView: React.Dispatch<React.SetStateAction<string>>;
+  setPageView: React.Dispatch<React.SetStateAction<PageId>>;
   username: string;
 }
 
