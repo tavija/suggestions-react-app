@@ -29,15 +29,18 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
     if (title !== "") {
       try {
         const apiBaseURL = process.env.REACT_APP_API_BASE;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const response = await fetch(
           apiBaseURL + "/suggestion",
           requestOptions
         );
-
-        console.log(await response.json());
-
+        if (response.status === 201){
+        props.fetchSuggestionsList();
+        } else {
+          console.error("Failed to post. Error: ", response.status)
+        }
         //tells the parent to call the function to getSuggestions again to display new info
-        props.fetchSuggestionsList(); //if there was follow up action, then use await
+        //props.fetchSuggestionsList(); //if there was follow up action, then use await
       } catch (err) {
         console.error(err.message);
       }
@@ -82,7 +85,6 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             rows={1}
             cols={1}
             maxLength={200}
-            required
           />
           <label className="form-label new-suggestion-left-column">
             Details
@@ -96,7 +98,6 @@ export function NewSuggestion(props: NewSuggestionProps): JSX.Element {
             className="content-box new-suggestion-right-column"
             rows={5}
             cols={5}
-            required
           />
         </div>
         <fieldset>
