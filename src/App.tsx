@@ -5,7 +5,6 @@ import { SuggestionsHistory } from "./components/SuggestionsHistory";
 import "./styles.css";
 import { PageId, SuggestionProps } from "./Types";
 
-
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
   const [username, setUsername] = useState("Tavija");
@@ -16,25 +15,25 @@ function App(): JSX.Element {
     try {
       const response = await fetch(apiBaseURL + "/suggestions");
       const receivedSuggestions = await response.json();
-      
-      if (response.status === 200){
+
+      if (response.status === 200) {
         setSuggestionsList(receivedSuggestions);
       } else {
-        console.error("Failed to post suggestion. Error: ", response.status)
+        console.error("Failed to post suggestion. Error: ", response.status);
       }
     } catch (err) {
       console.error(err.message);
     }
   };
-  
+
   useEffect(() => {
     getSuggestions();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //Send POST request to send vote to DB when 'Upvote' button is clicked
   async function handleVote(suggestionId: number) {
-    const body = {suggestion_id: suggestionId, username};
+    const body = { suggestion_id: suggestionId, username };
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,10 +43,11 @@ function App(): JSX.Element {
       try {
         const response = await fetch(apiBaseURL + "/vote", requestOptions);
 
-        if (response.status === 201){ //Success response status
+        //Success response status
+        if (response.status === 201) {
           getSuggestions();
         } else {
-          console.error("Failed to post vote. Error: ", response.status)
+          console.error("Failed to post vote. Error: ", response.status);
         }
       } catch (err) {
         console.error(err.message);
@@ -63,10 +63,11 @@ function App(): JSX.Element {
           apiBaseURL + "/suggestion/" + suggestionId.toString(),
           { method: "DELETE" }
         );
-        if (response.status === 200){ //Success response status
+        //Success response status
+        if (response.status === 200) {
           getSuggestions();
         } else {
-          console.error("Failed to delete. Error: ", response.status)
+          console.error("Failed to delete. Error: ", response.status);
         }
       } catch (err) {
         console.error(err.message);
@@ -83,7 +84,7 @@ function App(): JSX.Element {
         username={username}
       />
       {pageView === "newSuggestion" && (
-        <NewSuggestionForm 
+        <NewSuggestionForm
           fetchSuggestionsList={getSuggestions}
           username={username}
         />

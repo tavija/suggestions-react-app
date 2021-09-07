@@ -48,13 +48,17 @@ export function Header(props: IHeader): JSX.Element {
         ]}
         <option value="admin">Admin</option>
       </select>
-    )
+    );
   }
 
   function displayHeaderTitle() {
     return (
-      <h1 className="page-title">{(props.pageView === "allSuggestions") ? "Suggestions Box" : "Make a suggestion"}</h1>
-    )
+      <h1 className="page-title">
+        {props.pageView === "allSuggestions"
+          ? "Suggestions Box"
+          : "Make a suggestion"}
+      </h1>
+    );
   }
 
   if (props.pageView === "newSuggestion") {
@@ -71,9 +75,7 @@ export function Header(props: IHeader): JSX.Element {
           </button>
           {displaySelectTagWithUsers("new-suggestion-user-list")}
         </div>
-        <div className="header center">
-        {displayHeaderTitle()}
-        </div>
+        <div className="header center">{displayHeaderTitle()}</div>
       </div>
     );
   } else {

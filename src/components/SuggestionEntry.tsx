@@ -25,11 +25,16 @@ export function SuggestionEntry(props: ISuggestionsHistory): JSX.Element {
       const response = await fetch(
         apiBaseURL + "/votes/" + suggestionId.toString()
       );
-      const jsonData = await response.json();
+      const votesData = await response.json();
 
-      const votesCount = jsonData.data.getVotesForSuggestion[0].total_votes;
+      const votesCount = votesData.data.getVotesForSuggestion[0].total_votes;
 
-      setVotesCount(votesCount);
+      //Success response status
+      if (response.status === 200) {
+        setVotesCount(votesCount);
+      } else {
+        console.error("Failed to delete. Error: ", response.status);
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -38,13 +43,14 @@ export function SuggestionEntry(props: ISuggestionsHistory): JSX.Element {
   useEffect(() => {
     getVotesForSuggestion(props.suggestion.suggestion_id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[getVotesForSuggestion]);
+  }, [getVotesForSuggestion]);
 
-  //TODO deal with empty input
-  function formatTime(){
-    return " " + props.suggestion.time.slice(0, 10)+ " " +
-        props.suggestion.time.slice(11, 16)
-  }
+  //TODO turn to function and deal with empty input
+  const formatTime =
+    " " +
+    props.suggestion.time.slice(0, 10) +
+    " " +
+    props.suggestion.time.slice(11, 16);
 
   return (
     <div className="individual-suggestion">
@@ -52,7 +58,8 @@ export function SuggestionEntry(props: ISuggestionsHistory): JSX.Element {
       <p className="suggestion-content">{props.suggestion.content}</p>
       <br></br>
       <p className="suggestion-info">
-        <b>{votesCount} votes.</b> Posted at:{formatTime()} by {props.suggestion.name}
+        <b>{votesCount} votes.</b> Posted at:{formatTime} by{" "}
+        {props.suggestion.name}
       </p>
       <div className="center">
         {props.username.toLowerCase() === "admin" && (

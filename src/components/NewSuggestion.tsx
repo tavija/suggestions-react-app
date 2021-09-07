@@ -12,8 +12,12 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
   const [name, setName] = useState("anonymous");
 
   //useStates used for conditional rendering to display additional messages
-  const [shouldDislaySuccessfulSubmitMessage, setShouldDislaySuccessfulSubmitMessage] = useState(false);
-  const [shouldDisplayEmptyTitleMessage, setShouldDisplayEmptyTitleMessage] = useState(false);
+  const [
+    shouldDislaySuccessfulSubmitMessage,
+    setShouldDislaySuccessfulSubmitMessage,
+  ] = useState(false);
+  const [shouldDisplayEmptyTitleMessage, setShouldDisplayEmptyTitleMessage] =
+    useState(false);
 
   //POST request to send suggestion to DB when 'Submit' button is clicked, clears the form and tells the parent to fetch new suggestionsList
   async function submitSuggestion(
@@ -35,12 +39,13 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
           apiBaseURL + "/suggestion",
           requestOptions
         );
-        if (response.status === 201) { //Success response status
-          props.fetchSuggestionsList(); //Tells parent to refresh with new suggestionsList 
+        //Success response status
+        if (response.status === 201) {
+          props.fetchSuggestionsList(); //Tells parent to refresh with new suggestionsList
           resetSuggestionForm();
           setShouldDislaySuccessfulSubmitMessage(true);
         } else {
-          console.error("Failed to post. Error: ", response.status)
+          console.error("Failed to post. Error: ", response.status);
         }
       } catch (err) {
         console.error(err.message);
@@ -58,7 +63,7 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
 
   //TODO deal with empty input
   function capitalizeFirstLetter(word: string): string {
-    return (word.charAt(0).toUpperCase() + word.slice(1))
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
   return (
@@ -74,9 +79,7 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
           className="title-box new-suggestion-right-column"
           maxLength={200} //TODO provide user feedback when approaching character limit
         />
-        <label className="form-label new-suggestion-left-column">
-          Details
-        </label>
+        <label className="form-label new-suggestion-left-column">Details</label>
         <textarea
           id="content"
           value={content}
@@ -120,17 +123,15 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
         <button type="reset" onClick={resetSuggestionForm} className="button">
           Reset
         </button>
-      {shouldDislaySuccessfulSubmitMessage && (
-        <p>
-          Thank you for submitting your suggestion! You can submit another one
-          or return to view all suggestions.
-        </p>
-      )}
-      {shouldDisplayEmptyTitleMessage && (
-        <p>
-          Please enter title to submit your suggestion.
-        </p>
-      )}
+        {shouldDislaySuccessfulSubmitMessage && (
+          <p>
+            Thank you for submitting your suggestion! You can submit another one
+            or return to view all suggestions.
+          </p>
+        )}
+        {shouldDisplayEmptyTitleMessage && (
+          <p>Please enter title to submit your suggestion.</p>
+        )}
       </div>
     </div>
   );
