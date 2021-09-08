@@ -7,10 +7,11 @@ import { PageId, SuggestionProps } from "./Types";
 
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
-  const [username, setUsername] = useState("Tavija");
+  const [username, setUsername] = useState("Albie");
   const [pageView, setPageView] = useState<PageId>("allSuggestions");
 
   const apiBaseURL = process.env.REACT_APP_API_BASE;
+  //Send GET request to fetch a list of all suggestions from DB
   const getSuggestions = async () => {
     try {
       const response = await fetch(apiBaseURL + "/suggestions");
@@ -87,6 +88,7 @@ function App(): JSX.Element {
         <NewSuggestionForm
           fetchSuggestionsList={getSuggestions}
           username={username}
+          apiBaseURL={apiBaseURL}
         />
       )}
       {pageView === "allSuggestions" && (

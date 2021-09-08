@@ -3,6 +3,7 @@ import { useState } from "react";
 interface NewSuggestionFormProps {
   fetchSuggestionsList: () => Promise<void>;
   username: string;
+  apiBaseURL: string | undefined;
 }
 
 export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
@@ -12,17 +13,12 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
   const [name, setName] = useState("anonymous");
 
   //useStates used for conditional rendering to display additional messages
-  const [
-    shouldDislaySuccessfulSubmitMessage,
-    setShouldDislaySuccessfulSubmitMessage,
-  ] = useState(false);
-  const [shouldDisplayEmptyTitleMessage, setShouldDisplayEmptyTitleMessage] =
-    useState(false);
+  const [shouldDislaySuccessfulSubmitMessage,setShouldDislaySuccessfulSubmitMessage] = useState(false);
+  const [shouldDisplayEmptyTitleMessage, setShouldDisplayEmptyTitleMessage] = useState(false);
 
-  //POST request to send suggestion to DB when 'Submit' button is clicked, clears the form and tells the parent to fetch new suggestionsList
-  async function submitSuggestion(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
+  //Send POST request to insert suggestion to DB when 'Submit' button is clicked,
+  //clears the form and tells the parent to fetch new suggestionsList
+  async function submitSuggestion() {
     const body = { title, content, name };
     const requestOptions = {
       method: "POST",
@@ -34,14 +30,15 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
       setShouldDisplayEmptyTitleMessage(true);
     } else {
       try {
-        const apiBaseURL = process.env.REACT_APP_API_BASE;
         const response = await fetch(
-          apiBaseURL + "/suggestion",
+          props.apiBaseURL + "/suggestion",
           requestOptions
         );
+        console.log(response.status)
         //Success response status
         if (response.status === 201) {
-          props.fetchSuggestionsList(); //Tells parent to refresh with new suggestionsList
+          //Tells parent to refresh with new suggestionsList
+          props.fetchSuggestionsList();
           resetSuggestionForm();
           setShouldDislaySuccessfulSubmitMessage(true);
         } else {
@@ -117,9 +114,11 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
         </label>
       </fieldset>
       <div className="center">
+        {/* Submit Button */}
         <button type="submit" onClick={submitSuggestion} className="button">
           Submit
         </button>
+        {/* Upvote Button */}
         <button type="reset" onClick={resetSuggestionForm} className="button">
           Reset
         </button>
@@ -130,7 +129,9 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
           </p>
         )}
         {shouldDisplayEmptyTitleMessage && (
-          <p>Please enter title to submit your suggestion.</p>
+          <p>
+            Please enter title to submit your suggestion.
+          </p>
         )}
       </div>
     </div>
