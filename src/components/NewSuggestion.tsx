@@ -34,7 +34,6 @@ export function NewSuggestionForm(props: NewSuggestionFormProps): JSX.Element {
           props.apiBaseURL + "/suggestion",
           requestOptions
         );
-        console.log(response.status)
         //Success response status
         if (response.status === 201) {
           //Tells parent to refresh with new suggestionsList
