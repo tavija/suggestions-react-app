@@ -7,7 +7,7 @@ import { PageId, SuggestionProps } from "./Types";
 
 function App(): JSX.Element {
   const [suggestionsList, setSuggestionsList] = useState<SuggestionProps[]>([]);
-  const [username, setUsername] = useState("Albie");
+  const [username, setUsername] = useState("Tavija");
   const [pageView, setPageView] = useState<PageId>("allSuggestions");
 
   const apiBaseURL = process.env.REACT_APP_API_BASE;
