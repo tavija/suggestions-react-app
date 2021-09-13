@@ -20,9 +20,10 @@ export function Header(props: IHeader): JSX.Element {
 
   const userList = [
     "Tavija",
+    "Austin",
+    "Jay",
     "Chloe",
     "Kevin",
-    "Austin",
     "Howard",
     "Lauren"
   ];
